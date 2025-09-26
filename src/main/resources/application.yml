@@ -1,0 +1,15 @@
+spring:
+  kafka:
+    topics:
+      - plc_power_prod
+      - plc_power_dev
+      - plc_power_control
+    bootstrap-servers: localhost:9091,localhost:9094,localhost:9097
+    consumer:
+      group-id: plc-consumer-group
+      auto-offset-reset: earliest
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.apache.kafka.common.serialization.StringSerializer
