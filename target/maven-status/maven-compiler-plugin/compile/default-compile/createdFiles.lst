@@ -1,2 +1,16 @@
+com\charlessun\javaplcadapter\adapter\consumer\PlcConsumer.class
+com\charlessun\javaplcadapter\domain\common\ErrorResult.class
+com\charlessun\javaplcadapter\infrastructure\db\DataRepository.class
+com\charlessun\javaplcadapter\domain\model\BaseEntity.class
+com\charlessun\javaplcadapter\domain\common\Result.class
+com\charlessun\javaplcadapter\infrastructure\kafka\serializer\PlcDataDeserializer.class
+com\charlessun\javaplcadapter\adapter\config\KafkaConsumerConfig.class
 com\charlessun\javaplcadapter\infrastructure\db\impl\CsvDataRepository$CsvMapper.class
+com\charlessun\javaplcadapter\domain\model\impl\PlcData.class
+com\charlessun\javaplcadapter\adapter\config\KafkaTopicsProperties.class
+com\charlessun\javaplcadapter\domain\common\DataResult.class
+com\charlessun\javaplcadapter\domain\common\MessageResult.class
 com\charlessun\javaplcadapter\infrastructure\db\impl\CsvDataRepository.class
+com\charlessun\javaplcadapter\JavaPlcKafkaAdapterApplication.class
+com\charlessun\javaplcadapter\adapter\service\KafkaConsumeService.class
+com\charlessun\javaplcadapter\domain\common\impl\SaveResult.class

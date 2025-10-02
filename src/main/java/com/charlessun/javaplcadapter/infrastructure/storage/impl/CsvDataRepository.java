@@ -1,7 +1,7 @@
-package com.charlessun.javaplcadapter.infrastructure.db.impl;
+package com.charlessun.javaplcadapter.infrastructure.storage.impl;
 
 import com.charlessun.javaplcadapter.domain.common.impl.SaveResult;
-import com.charlessun.javaplcadapter.infrastructure.db.DataRepository;
+import com.charlessun.javaplcadapter.infrastructure.storage.DataRepository;
 
 import java.io.FileWriter;
 import java.io.IOException;
@@ -37,12 +37,21 @@ public class CsvDataRepository<T> implements DataRepository<T, SaveResult> {
 
     @Override
     public SaveResult save(T entity) {
-        try (FileWriter writer = new FileWriter(filePath, true)) {
-            writer.append(mapper.toCsvRow(entity)).append("\n");
+        try (var writer = new FileWriter(filePath, true)) {
+            if (isFileEmpty()) {
+                writer.write(mapper.header() + System.lineSeparator());
+            }
+            writer.write(mapper.toCsvRow(entity) + System.lineSeparator());
+            writer.flush();
             return SaveResult.success("CSV 寫入成功: " + entity);
-        } catch (IOException e) {
+        } catch (Exception e) {
             return SaveResult.failure(e);
         }
+    }
+
+    private boolean isFileEmpty() throws IOException {
+        Path path = Path.of(filePath);
+        return Files.notExists(path) || Files.size(path) == 0;
     }
 
     /**

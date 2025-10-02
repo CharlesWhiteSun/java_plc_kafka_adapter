@@ -1,7 +1,6 @@
-package com.charlessun.javaplcadapter.infrastructure.db.impl;
+package com.charlessun.javaplcadapter.infrastructure.storage.impl;
 
 import org.junit.jupiter.api.*;
-import org.mockito.Mockito;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -12,6 +11,7 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
+@SuppressWarnings("unchecked")
 public class CsvDataRepositoryTest {
 
     private Path tempFile;
@@ -49,10 +49,12 @@ public class CsvDataRepositoryTest {
         assertTrue(result.success());
         assertEquals("CSV 寫入成功: " + entity, result.message());
 
-        verify(mapper, times(1)).toCsvRow(entity);
+        verify(mapper, times(1)).toCsvRow(argThat(e ->
+                e.getName().equals("test") && e.getValue() == 123
+        ));
 
         var lines = Files.readAllLines(tempFile);
-        assertEquals("name,value", lines.get(0)); // header
+        assertEquals(mapper.header(), lines.get(0));
         assertEquals("test,123", lines.get(1));
     }
 
@@ -71,6 +73,18 @@ public class CsvDataRepositoryTest {
         assertEquals("apple,10", lines.get(1));
         assertEquals("banana,20", lines.get(2));
     }
+
+    @Test
+    void testSave_MapperThrowsException() {
+        when(mapper.toCsvRow(any())).thenThrow(new RuntimeException("轉換失敗"));
+
+        var result = repository.save(new TestEntity("error", 999));
+
+        assertFalse(result.success());
+        assertNotNull(result.error());
+        assertEquals("轉換失敗", result.error().getMessage());
+    }
+
 
     static class TestEntity {
         private final String name;

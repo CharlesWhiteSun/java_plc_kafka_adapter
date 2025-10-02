@@ -1,4 +1,4 @@
-package com.charlessun.javaplcadapter.infrastructure.db;
+package com.charlessun.javaplcadapter.infrastructure.storage;
 
 import com.charlessun.javaplcadapter.domain.common.impl.SaveResult;
 

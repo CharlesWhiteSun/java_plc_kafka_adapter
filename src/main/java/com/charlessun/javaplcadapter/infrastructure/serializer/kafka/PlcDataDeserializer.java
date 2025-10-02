@@ -1,4 +1,4 @@
-package com.charlessun.javaplcadapter.infrastructure.kafka.serializer;
+package com.charlessun.javaplcadapter.infrastructure.serializer.kafka;
 
 import com.charlessun.javaplcadapter.domain.model.impl.PlcData;
 import org.apache.kafka.common.serialization.Deserializer;
