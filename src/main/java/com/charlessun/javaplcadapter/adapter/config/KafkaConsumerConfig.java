@@ -1,7 +1,7 @@
-package com.charlessun.javaplcadapter.config;
+package com.charlessun.javaplcadapter.adapter.config;
 
-import com.charlessun.javaplcadapter.model.PlcData;
-import com.charlessun.javaplcadapter.serializer.PlcDataDeserializer;
+import com.charlessun.javaplcadapter.domain.model.impl.PlcData;
+import com.charlessun.javaplcadapter.infrastructure.kafka.serializer.PlcDataDeserializer;
 import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.common.serialization.ByteArrayDeserializer;
 import org.apache.kafka.common.serialization.StringDeserializer;

@@ -1,6 +1,6 @@
-package com.charlessun.javaplcadapter.serializer;
+package com.charlessun.javaplcadapter.infrastructure.kafka.serializer;
 
-import com.charlessun.javaplcadapter.model.PlcData;
+import com.charlessun.javaplcadapter.domain.model.impl.PlcData;
 import org.apache.kafka.common.serialization.Deserializer;
 
 import java.nio.ByteBuffer;

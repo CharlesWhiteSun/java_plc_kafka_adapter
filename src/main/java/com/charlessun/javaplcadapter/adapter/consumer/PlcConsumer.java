@@ -1,7 +1,7 @@
-package com.charlessun.javaplcadapter.consumer;
+package com.charlessun.javaplcadapter.adapter.consumer;
 
-import com.charlessun.javaplcadapter.config.KafkaTopicsProperties;
-import com.charlessun.javaplcadapter.model.PlcData;
+import com.charlessun.javaplcadapter.adapter.config.KafkaTopicsProperties;
+import com.charlessun.javaplcadapter.domain.model.impl.PlcData;
 import jakarta.annotation.PostConstruct;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.springframework.kafka.annotation.KafkaListener;

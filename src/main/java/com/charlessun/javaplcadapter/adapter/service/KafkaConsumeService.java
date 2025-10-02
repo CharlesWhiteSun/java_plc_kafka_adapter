@@ -1,4 +1,4 @@
-package com.charlessun.javaplcadapter.service;
+package com.charlessun.javaplcadapter.adapter.service;
 
 import lombok.RequiredArgsConstructor;
 import org.apache.kafka.clients.consumer.ConsumerRecord;

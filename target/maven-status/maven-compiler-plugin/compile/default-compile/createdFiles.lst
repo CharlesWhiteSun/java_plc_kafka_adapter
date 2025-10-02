@@ -1,1 +1,2 @@
-com\charlessun\javaplcadapter\config\KafkaTopicsProperties.class
+com\charlessun\javaplcadapter\infrastructure\db\impl\CsvDataRepository$CsvMapper.class
+com\charlessun\javaplcadapter\infrastructure\db\impl\CsvDataRepository.class
