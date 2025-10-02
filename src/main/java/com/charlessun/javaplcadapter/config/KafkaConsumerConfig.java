@@ -1,5 +1,7 @@
 package com.charlessun.javaplcadapter.config;
 
+import com.charlessun.javaplcadapter.model.PlcData;
+import com.charlessun.javaplcadapter.serializer.PlcDataDeserializer;
 import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.common.serialization.ByteArrayDeserializer;
 import org.apache.kafka.common.serialization.StringDeserializer;
@@ -24,6 +26,7 @@ public class KafkaConsumerConfig {
     @Value("${spring.kafka.consumer.group-id}")
     private String groupId;
 
+    // 給 byte[] 用的 consumerFactory
     @Bean
     public ConsumerFactory<String, byte[]> consumerFactory() {
         Map<String, Object> props = new HashMap<>();
@@ -35,11 +38,24 @@ public class KafkaConsumerConfig {
         return new DefaultKafkaConsumerFactory<>(props);
     }
 
+    // ➕ 給 PlcData 用的 consumerFactory
     @Bean
-    public ConcurrentKafkaListenerContainerFactory<String, byte[]> kafkaListenerContainerFactory() {
-        ConcurrentKafkaListenerContainerFactory<String, byte[]> factory =
+    public ConsumerFactory<String, PlcData> plcDataConsumerFactory() {
+        Map<String, Object> props = new HashMap<>();
+        props.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, bootstrapServers);
+        props.put(ConsumerConfig.GROUP_ID_CONFIG, groupId);
+        props.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class);
+        props.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, PlcDataDeserializer.class); // 使用自訂的 Deserializer
+        props.put(ConsumerConfig.AUTO_OFFSET_RESET_CONFIG, "earliest");
+        return new DefaultKafkaConsumerFactory<>(props);
+    }
+
+    // ➕ Listener Container Factory (給 @KafkaListener 使用 PlcData)
+    @Bean
+    public ConcurrentKafkaListenerContainerFactory<String, PlcData> plcDataKafkaListenerContainerFactory() {
+        ConcurrentKafkaListenerContainerFactory<String, PlcData> factory =
                 new ConcurrentKafkaListenerContainerFactory<>();
-        factory.setConsumerFactory(consumerFactory());
+        factory.setConsumerFactory(plcDataConsumerFactory());
         return factory;
     }
 }

@@ -1,12 +1,11 @@
 package com.charlessun.javaplcadapter.consumer;
 
 import com.charlessun.javaplcadapter.config.KafkaTopicsProperties;
+import com.charlessun.javaplcadapter.model.PlcData;
 import jakarta.annotation.PostConstruct;
+import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Component;
-
-import java.nio.charset.StandardCharsets;
-import java.util.Arrays;
 
 @Component
 public class PlcConsumer {
@@ -19,14 +18,21 @@ public class PlcConsumer {
 
     @KafkaListener(
             topics = "#{kafkaTopicsProperties.topics}",
-            groupId = "${spring.kafka.consumer.group-id}"
+            groupId = "${spring.kafka.consumer.group-id}",
+            containerFactory = "plcDataKafkaListenerContainerFactory"
     )
-    public void listen(byte[] message) {
-        System.out.println("收到 byte[] 訊息: " + Arrays.toString(message));
+    public void listen(ConsumerRecord<String, PlcData> record) {
+        String key = record.key();      // Kafka 的 Key (Go 那邊設的 group)
+        PlcData plcData = record.value();
 
-        // 如果需要轉成 String
-        String str = new String(message, StandardCharsets.UTF_8);
-        System.out.println("轉換成 String: " + str);
+        System.out.printf(
+                "✅ 收到訊息 (Group=%s, Topic=%s, Partition=%d, Offset=%d)%n",
+                key, record.topic(), record.partition(), record.offset()
+        );
+
+        System.out.printf("➡️ 解析後物件: %s%n", plcData);
+        System.out.printf("電壓: %.2f V, 電流: %.2f A%n",
+                plcData.getVoltage(), plcData.getCurrent());
     }
 
     @PostConstruct
