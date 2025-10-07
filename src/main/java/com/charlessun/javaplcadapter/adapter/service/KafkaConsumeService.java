@@ -1,6 +1,6 @@
 package com.charlessun.javaplcadapter.adapter.service;
 
-import lombok.RequiredArgsConstructor;
+import com.charlessun.javaplcadapter.adapter.config.KafkaTopicsConsumerProperties;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.apache.kafka.clients.consumer.ConsumerRecords;
 import org.apache.kafka.clients.consumer.KafkaConsumer;
@@ -12,13 +12,16 @@ import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.stereotype.Service;
 
 import java.time.Duration;
-import java.util.Collections;
+import java.util.Arrays;
 
 @Service
 public class KafkaConsumeService {
 
     @Autowired
     private ConsumerFactory<String, byte[]> consumerFactory;
+
+    @Autowired
+    private KafkaTopicsConsumerProperties kafkaTopicsConsumerProperties;
 
     @Value("${kafka.consume.strategy}")
     private String consumeStrategy;
@@ -33,7 +36,7 @@ public class KafkaConsumeService {
 
     private void consumeLoop() {
         KafkaConsumer<String, byte[]> consumer = (KafkaConsumer<String, byte[]>) consumerFactory.createConsumer();
-        consumer.subscribe(Collections.singletonList("plc_power_prod"));
+        consumer.subscribe(kafkaTopicsConsumerProperties.getTopics());
 
         try {
             if ("unlimited".equalsIgnoreCase(consumeStrategy)) {
@@ -51,7 +54,9 @@ public class KafkaConsumeService {
     }
 
     private void unlimitedConsume(KafkaConsumer<String, byte[]> consumer) {
+        System.out.println("\n============================================");
         System.out.println("啟動無限制拉取模式...");
+        System.out.println("============================================\n");
         while (true) {
             ConsumerRecords<String, byte[]> records = consumer.poll(Duration.ofMillis(100));
             processRecords(records);
@@ -59,7 +64,9 @@ public class KafkaConsumeService {
     }
 
     private void intervalConsume(KafkaConsumer<String, byte[]> consumer) throws InterruptedException {
+        System.out.println("\n============================================");
         System.out.println("啟動指定間隔拉取模式，每 " + intervalMs + " 毫秒拉取一次");
+        System.out.println("============================================\n");
         while (true) {
             ConsumerRecords<String, byte[]> records = consumer.poll(Duration.ofMillis(100));
             processRecords(records);
@@ -74,7 +81,7 @@ public class KafkaConsumeService {
                     record.partition(),
                     record.offset(),
                     record.key(),
-                    new String(record.value())); // 轉 byte[] 為 String，或自行解析
+                    Arrays.toString(record.value())); // 轉 byte[] 為 String，或自行解析
         }
     }
 }

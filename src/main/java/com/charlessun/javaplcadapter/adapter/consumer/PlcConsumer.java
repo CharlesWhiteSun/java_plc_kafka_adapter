@@ -1,6 +1,6 @@
 package com.charlessun.javaplcadapter.adapter.consumer;
 
-import com.charlessun.javaplcadapter.adapter.config.KafkaTopicsProperties;
+import com.charlessun.javaplcadapter.adapter.config.KafkaTopicsConsumerProperties;
 import com.charlessun.javaplcadapter.domain.model.impl.PlcData;
 import jakarta.annotation.PostConstruct;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
@@ -10,14 +10,14 @@ import org.springframework.stereotype.Component;
 @Component
 public class PlcConsumer {
 
-    private final KafkaTopicsProperties kafkaTopicsProperties;
+    private final KafkaTopicsConsumerProperties KafkaTopicsConsumerProperties;
 
-    public PlcConsumer(KafkaTopicsProperties kafkaTopicsProperties) {
-        this.kafkaTopicsProperties = kafkaTopicsProperties;
+    public PlcConsumer(KafkaTopicsConsumerProperties KafkaTopicsConsumerProperties) {
+        this.KafkaTopicsConsumerProperties = KafkaTopicsConsumerProperties;
     }
 
     @KafkaListener(
-            topics = "#{kafkaTopicsProperties.topics}",
+            topics = "#{kafkaTopicsConsumerProperties.topics}",
             groupId = "${spring.kafka.consumer.group-id}",
             containerFactory = "plcDataKafkaListenerContainerFactory"
     )
@@ -38,7 +38,7 @@ public class PlcConsumer {
     @PostConstruct
     public void printTopics() {
         System.out.println("\n============================================");
-        System.out.println("已設定的 topics: " + kafkaTopicsProperties.getTopics());
+        System.out.println("已設定的 topics: " + KafkaTopicsConsumerProperties.getTopics());
         System.out.println("============================================\n");
     }
 }

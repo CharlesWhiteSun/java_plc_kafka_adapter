@@ -6,8 +6,8 @@ import org.springframework.context.annotation.Configuration;
 import java.util.List;
 
 @Configuration
-@ConfigurationProperties(prefix = "kafka")
-public class KafkaTopicsProperties {
+@ConfigurationProperties(prefix = "kafka.consumer")
+public class KafkaTopicsConsumerProperties {
     private List<String> topics;
 
     public List<String> getTopics() {

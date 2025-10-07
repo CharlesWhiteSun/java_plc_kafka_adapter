@@ -9,10 +9,11 @@ spring:
 
 kafka:
   bootstrap-servers: localhost:9091,localhost:9094,localhost:9097
-  topics:
-    - plc_power_prod
-    - plc_power_dev
-    - plc_power_control
+  consumer:
+    topics:
+      - plc_power_prod
+      - plc_power_dev
+      - plc_power_control
   consume:
     strategy: interval  # unlimited 或 interval
     interval-ms: 2000   # 拉取間隔（毫秒），interval 模式才用
