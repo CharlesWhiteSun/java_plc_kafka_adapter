@@ -12,4 +12,7 @@ C:\java\java_plc_kafka_adapter\src\main\java\com\charlessun\javaplcadapter\adapt
 C:\java\java_plc_kafka_adapter\src\main\java\com\charlessun\javaplcadapter\infrastructure\serializer\kafka\PlcDataDeserializer.java
 C:\java\java_plc_kafka_adapter\src\main\java\com\charlessun\javaplcadapter\infrastructure\storage\impl\CsvDataRepository.java
 C:\java\java_plc_kafka_adapter\src\main\java\com\charlessun\javaplcadapter\domain\model\impl\PlcData.java
+C:\java\java_plc_kafka_adapter\src\main\java\com\charlessun\javaplcadapter\adapter\producer\KafkaProducerConfig.java
 C:\java\java_plc_kafka_adapter\src\main\java\com\charlessun\javaplcadapter\domain\common\ErrorResult.java
+C:\java\java_plc_kafka_adapter\src\main\java\com\charlessun\javaplcadapter\adapter\producer\KafkaTopicsProducerProperties.java
+C:\java\java_plc_kafka_adapter\src\main\java\com\charlessun\javaplcadapter\adapter\producer\PlcProducer.java

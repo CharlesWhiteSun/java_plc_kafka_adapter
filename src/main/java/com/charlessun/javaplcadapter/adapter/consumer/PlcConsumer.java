@@ -1,6 +1,7 @@
 package com.charlessun.javaplcadapter.adapter.consumer;
 
 import com.charlessun.javaplcadapter.adapter.config.KafkaTopicsConsumerProperties;
+import com.charlessun.javaplcadapter.adapter.producer.PlcProducer;
 import com.charlessun.javaplcadapter.domain.model.impl.PlcData;
 import jakarta.annotation.PostConstruct;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
@@ -11,9 +12,11 @@ import org.springframework.stereotype.Component;
 public class PlcConsumer {
 
     private final KafkaTopicsConsumerProperties KafkaTopicsConsumerProperties;
+    private final PlcProducer plcProducer;
 
-    public PlcConsumer(KafkaTopicsConsumerProperties KafkaTopicsConsumerProperties) {
-        this.KafkaTopicsConsumerProperties = KafkaTopicsConsumerProperties;
+    public PlcConsumer(KafkaTopicsConsumerProperties kafkaTopicsConsumerProperties, PlcProducer plcProducer) {
+        this.KafkaTopicsConsumerProperties = kafkaTopicsConsumerProperties;
+        this.plcProducer = plcProducer;
     }
 
     @KafkaListener(
@@ -23,6 +26,7 @@ public class PlcConsumer {
     )
     public void listen(ConsumerRecord<String, PlcData> record) {
         String key = record.key();      // Kafka 的 Key (Go 那邊設的 group)
+        String topicFrom = record.topic();
         PlcData plcData = record.value();
 
         System.out.printf(
@@ -33,6 +37,12 @@ public class PlcConsumer {
         System.out.printf("➡️ 解析後物件: %s%n", plcData);
         System.out.printf("電壓: %.2f V, 電流: %.2f A%n",
                 plcData.getVoltage(), plcData.getCurrent());
+
+        // 把資料送到對應的 resolved topic
+        String message = String.format("Group: %s, Topic_From: %s, voltage: %.5f, current: %.5f",
+                key, topicFrom, plcData.getVoltage(), plcData.getCurrent());
+
+        plcProducer.sendToResolvedTopic(topicFrom, key, message);
     }
 
     @PostConstruct
