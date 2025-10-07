@@ -1,6 +1,7 @@
 C:\java\java_plc_kafka_adapter\src\main\java\com\charlessun\javaplcadapter\adapter\service\KafkaConsumeService.java
 C:\java\java_plc_kafka_adapter\src\main\java\com\charlessun\javaplcadapter\domain\common\DataResult.java
 C:\java\java_plc_kafka_adapter\src\main\java\com\charlessun\javaplcadapter\domain\common\MessageResult.java
+C:\java\java_plc_kafka_adapter\src\main\java\com\charlessun\javaplcadapter\infrastructure\storage\DataRepository.java
 C:\java\java_plc_kafka_adapter\src\main\java\com\charlessun\javaplcadapter\domain\common\Result.java
 C:\java\java_plc_kafka_adapter\src\main\java\com\charlessun\javaplcadapter\JavaPlcKafkaAdapterApplication.java
 C:\java\java_plc_kafka_adapter\src\main\java\com\charlessun\javaplcadapter\adapter\config\KafkaConsumerConfig.java
@@ -8,8 +9,7 @@ C:\java\java_plc_kafka_adapter\src\main\java\com\charlessun\javaplcadapter\domai
 C:\java\java_plc_kafka_adapter\src\main\java\com\charlessun\javaplcadapter\domain\common\impl\SaveResult.java
 C:\java\java_plc_kafka_adapter\src\main\java\com\charlessun\javaplcadapter\adapter\config\KafkaTopicsProperties.java
 C:\java\java_plc_kafka_adapter\src\main\java\com\charlessun\javaplcadapter\adapter\consumer\PlcConsumer.java
-C:\java\java_plc_kafka_adapter\src\main\java\com\charlessun\javaplcadapter\infrastructure\db\impl\CsvDataRepository.java
+C:\java\java_plc_kafka_adapter\src\main\java\com\charlessun\javaplcadapter\infrastructure\serializer\kafka\PlcDataDeserializer.java
+C:\java\java_plc_kafka_adapter\src\main\java\com\charlessun\javaplcadapter\infrastructure\storage\impl\CsvDataRepository.java
 C:\java\java_plc_kafka_adapter\src\main\java\com\charlessun\javaplcadapter\domain\model\impl\PlcData.java
-C:\java\java_plc_kafka_adapter\src\main\java\com\charlessun\javaplcadapter\infrastructure\db\DataRepository.java
 C:\java\java_plc_kafka_adapter\src\main\java\com\charlessun\javaplcadapter\domain\common\ErrorResult.java
-C:\java\java_plc_kafka_adapter\src\main\java\com\charlessun\javaplcadapter\infrastructure\kafka\serializer\PlcDataDeserializer.java

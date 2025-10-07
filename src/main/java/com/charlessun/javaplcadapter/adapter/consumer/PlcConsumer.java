@@ -37,6 +37,8 @@ public class PlcConsumer {
 
     @PostConstruct
     public void printTopics() {
+        System.out.println("\n============================================");
         System.out.println("已設定的 topics: " + kafkaTopicsProperties.getTopics());
+        System.out.println("============================================\n");
     }
 }
