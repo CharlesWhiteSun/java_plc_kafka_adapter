@@ -13,7 +13,6 @@ com\charlessun\javaplcadapter\domain\common\DataResult.class
 com\charlessun\javaplcadapter\domain\common\MessageResult.class
 com\charlessun\javaplcadapter\infrastructure\storage\impl\CsvDataRepository$CsvMapper.class
 com\charlessun\javaplcadapter\JavaPlcKafkaAdapterApplication.class
-com\charlessun\javaplcadapter\adapter\service\KafkaConsumeService.class
 com\charlessun\javaplcadapter\domain\common\impl\SaveResult.class
 com\charlessun\javaplcadapter\infrastructure\serializer\kafka\PlcDataDeserializer.class
 com\charlessun\javaplcadapter\infrastructure\storage\DataRepository.class
