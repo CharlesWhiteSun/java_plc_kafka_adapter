@@ -1,54 +1,72 @@
 package com.charlessun.javaplcadapter.adapter.consumer;
 
-import com.charlessun.javaplcadapter.adapter.config.KafkaTopicsConsumerProperties;
-import com.charlessun.javaplcadapter.adapter.producer.PlcProducer;
+import com.charlessun.javaplcadapter.application.strategy.StrategyType;
+import com.charlessun.javaplcadapter.application.strategy.PlcDataProcessingStrategy;
 import com.charlessun.javaplcadapter.domain.model.impl.PlcData;
 import jakarta.annotation.PostConstruct;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Component;
 
+import java.util.Map;
+
 @Component
 public class PlcConsumer {
 
-    private final KafkaTopicsConsumerProperties KafkaTopicsConsumerProperties;
-    private final PlcProducer plcProducer;
+    private final KafkaTopicsConsumerProperties kafkaTopicsConsumerProperties;
+    private final Map<String, PlcDataProcessingStrategy> strategies;
 
-    public PlcConsumer(KafkaTopicsConsumerProperties kafkaTopicsConsumerProperties, PlcProducer plcProducer) {
-        this.KafkaTopicsConsumerProperties = kafkaTopicsConsumerProperties;
-        this.plcProducer = plcProducer;
+    public PlcConsumer(KafkaTopicsConsumerProperties kafkaTopicsConsumerProperties,
+                       Map<String, PlcDataProcessingStrategy> strategies) {
+        this.kafkaTopicsConsumerProperties = kafkaTopicsConsumerProperties;
+        this.strategies = strategies;
     }
 
+    /**
+     * KafkaListener 使用的預設 listen 方法
+     */
     @KafkaListener(
             topics = "#{kafkaTopicsConsumerProperties.topics}",
             groupId = "${spring.kafka.consumer.group-id}",
             containerFactory = "plcDataKafkaListenerContainerFactory"
     )
     public void listen(ConsumerRecord<String, PlcData> record) {
-        String key = record.key();      // Kafka 的 Key (Go 那邊設的 group)
+        listen(record, getDefaultStrategy());
+    }
+
+    /**
+     * 可指定策略的 listen 方法
+     */
+    public void listen(ConsumerRecord<String, PlcData> record, PlcDataProcessingStrategy strategy) {
+        String key = record.key();
         String topicFrom = record.topic();
         PlcData plcData = record.value();
 
         System.out.printf(
-                "✅ 收到訊息 (Group=%s, Topic=%s, Partition=%d, Offset=%d)%n",
-                key, record.topic(), record.partition(), record.offset()
+                "✅ 收到訊息 (Group=%s, Topic=%s, Partition=%d, Offset=%d, 電壓: %.2f V, 電流: %.2f A)%n",
+                key, topicFrom, record.partition(), record.offset(), plcData.getVoltage(), plcData.getCurrent()
         );
 
-        System.out.printf("➡️ 解析後物件: %s%n", plcData);
-        System.out.printf("電壓: %.2f V, 電流: %.2f A%n",
-                plcData.getVoltage(), plcData.getCurrent());
+        strategy.process(record);
+    }
 
-        // 把資料送到對應的 resolved topic
-        String message = String.format("Group: %s, Topic_From: %s, voltage: %.5f, current: %.5f",
-                key, topicFrom, plcData.getVoltage(), plcData.getCurrent());
-
-        plcProducer.sendToResolvedTopic(topicFrom, key, message);
+    /**
+     * 預設策略取得
+     */
+    private PlcDataProcessingStrategy getDefaultStrategy() {
+        return strategies.getOrDefault(
+                StrategyType.WRITE_KAFKA.getBeanName(),
+                strategies.getOrDefault(
+                        StrategyType.NOOP.getBeanName(),
+                        record -> System.out.println("⚪ 無策略可用，跳過處理")
+                )
+        );
     }
 
     @PostConstruct
     public void printTopics() {
         System.out.println("\n============================================");
-        System.out.println("已設定的 topics: " + KafkaTopicsConsumerProperties.getTopics());
+        System.out.println("已設定的 topics: " + kafkaTopicsConsumerProperties.getTopics());
         System.out.println("============================================\n");
     }
 }
