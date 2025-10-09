@@ -1,6 +1,7 @@
 package com.charlessun.javaplcadapter.worker.impl;
 
 import com.charlessun.javaplcadapter.model.MessageRecord;
+import com.charlessun.javaplcadapter.util.LogUtil;
 import com.charlessun.javaplcadapter.worker.ConsumerWorker;
 import com.charlessun.javaplcadapter.kafka.client.KafkaConsumerClient;
 import com.charlessun.javaplcadapter.processor.ProcessingStrategy;
@@ -8,11 +9,12 @@ import com.charlessun.javaplcadapter.processor.ProcessingStrategy;
 import java.time.Duration;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicBoolean;
+
 import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 public class ConsumerWorkerImpl<T> implements ConsumerWorker {
-    private static final Logger log = LoggerFactory.getLogger(ConsumerWorkerImpl.class);
+    private static final Logger log = LogUtil.getLogger(ConsumerWorkerImpl.class);
+
     private final KafkaConsumerClient<T> kafkaConsumerClient;
     private final ProcessingStrategy<T> processingStrategy;
     private final AtomicBoolean running = new AtomicBoolean(false);

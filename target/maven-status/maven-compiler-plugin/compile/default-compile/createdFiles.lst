@@ -1,4 +1,6 @@
 com\charlessun\javaplcadapter\worker\ConsumerWorker.class
+com\charlessun\javaplcadapter\kafka\client\FakeKafkaConsumerClient.class
+com\charlessun\javaplcadapter\util\LogUtil.class
 com\charlessun\javaplcadapter\manager\impl\DefaultConsumerManager.class
 com\charlessun\javaplcadapter\model\ConsumerSpec$Builder.class
 com\charlessun\javaplcadapter\model\ConsumerSpec.class

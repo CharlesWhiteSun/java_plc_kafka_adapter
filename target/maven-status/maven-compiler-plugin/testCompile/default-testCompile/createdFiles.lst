@@ -1,2 +1,3 @@
 com\charlessun\javaplcadapter\worker\ConsumerWorkerTest.class
+com\charlessun\javaplcadapter\integration\ConsumerIntegrationTest.class
 com\charlessun\javaplcadapter\manager\ConsumerManagerTest.class
