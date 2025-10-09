@@ -1,3 +1,7 @@
+com\charlessun\javaplcadapter\manager\ConsumerManagerTest.class
 com\charlessun\javaplcadapter\worker\ConsumerWorkerTest.class
 com\charlessun\javaplcadapter\integration\ConsumerIntegrationTest.class
-com\charlessun\javaplcadapter\manager\ConsumerManagerTest.class
+com\charlessun\javaplcadapter\integration\TestKafkaConfig.class
+com\charlessun\javaplcadapter\integration\KafkaIntegrationTest.class
+com\charlessun\javaplcadapter\integration\TestKafkaConsumer.class
+com\charlessun\javaplcadapter\SanityTest.class

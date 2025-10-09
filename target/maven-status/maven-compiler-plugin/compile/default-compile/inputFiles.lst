@@ -1,10 +1,14 @@
+C:\java\java_plc_kafka_adapter\src\main\java\com\charlessun\javaplcadapter\processor\ProcessingStrategy.java
+C:\java\java_plc_kafka_adapter\src\main\java\com\charlessun\javaplcadapter\config\KafkaConfig.java
+C:\java\java_plc_kafka_adapter\src\main\java\com\charlessun\javaplcadapter\kafka\client\KafkaProducerClient.java
+C:\java\java_plc_kafka_adapter\src\main\java\com\charlessun\javaplcadapter\model\MessageRecord.java
+C:\java\java_plc_kafka_adapter\src\main\java\com\charlessun\javaplcadapter\worker\ConsumerWorker.java
 C:\java\java_plc_kafka_adapter\src\main\java\com\charlessun\javaplcadapter\manager\ConsumerManager.java
 C:\java\java_plc_kafka_adapter\src\main\java\com\charlessun\javaplcadapter\worker\impl\ConsumerWorkerImpl.java
 C:\java\java_plc_kafka_adapter\src\main\java\com\charlessun\javaplcadapter\manager\impl\DefaultConsumerManager.java
-C:\java\java_plc_kafka_adapter\src\main\java\com\charlessun\javaplcadapter\processor\ProcessingStrategy.java
+C:\java\java_plc_kafka_adapter\src\main\java\com\charlessun\javaplcadapter\kafka\impl\SpringKafkaProducerClient.java
 C:\java\java_plc_kafka_adapter\src\main\java\com\charlessun\javaplcadapter\kafka\client\KafkaConsumerClient.java
-C:\java\java_plc_kafka_adapter\src\main\java\com\charlessun\javaplcadapter\model\MessageRecord.java
+C:\java\java_plc_kafka_adapter\src\main\java\com\charlessun\javaplcadapter\kafka\impl\SpringKafkaConsumerClient.java
 C:\java\java_plc_kafka_adapter\src\main\java\com\charlessun\javaplcadapter\kafka\client\FakeKafkaConsumerClient.java
-C:\java\java_plc_kafka_adapter\src\main\java\com\charlessun\javaplcadapter\worker\ConsumerWorker.java
 C:\java\java_plc_kafka_adapter\src\main\java\com\charlessun\javaplcadapter\model\ConsumerSpec.java
 C:\java\java_plc_kafka_adapter\src\main\java\com\charlessun\javaplcadapter\util\LogUtil.java
