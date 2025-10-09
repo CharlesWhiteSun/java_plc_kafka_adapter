@@ -1,53 +1,41 @@
 package com.charlessun.javaplcadapter.application.manager.impl;
 
-import com.charlessun.javaplcadapter.adapter.producer.Producer;
 import com.charlessun.javaplcadapter.application.manager.ProducerManager;
+import com.charlessun.javaplcadapter.application.strategy.ProducerStrategy;
+import com.charlessun.javaplcadapter.adapter.producer.Producer;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
-/**
- * 預設的 Producer 管理器實作。
- * 負責統一管理多個 Producer 的發送行為。
- */
 @Service
 public class DefaultProducerManager implements ProducerManager {
+    private final List<Producer> producers = new ArrayList<>();
+    private final List<ProducerStrategy> strategies;
 
-    private final List<Producer<?, ?>> registeredProducers = new ArrayList<>();
-
-    @Override
-    public void Start(Producer<?, ?>... producers) {
-        if (producers == null || producers.length == 0) {
-            System.out.println("⚪ 沒有可啟動的 Producer。");
-            return;
-        }
-
-        registeredProducers.addAll(Arrays.asList(producers));
-        System.out.println("🚀 啟動 Producer 服務...");
-        registeredProducers.forEach(p ->
-                System.out.printf("✅ 已註冊 Producer: %s%n", p.getClass().getSimpleName())
-        );
+    public DefaultProducerManager(List<ProducerStrategy> strategies) {
+        this.strategies = strategies;
     }
 
     @Override
-    public <K, V> void Broadcast(K key, V value) {
-        if (registeredProducers.isEmpty()) {
-            System.out.println("⚪ 尚未註冊任何 Producer。");
-            return;
+    public void registerProducers(Producer... producers) {
+        for (Producer producer : producers) {
+            System.out.println("[ProducerManager] 註冊生產者: " + producer.getName());
+            this.producers.add(producer);
         }
+    }
 
-        System.out.printf("📤 廣播訊息 (key=%s, value=%s) 給所有 Producer...%n", key, value);
-        registeredProducers.forEach(p -> {
-            try {
-                // 安全轉型呼叫
-                @SuppressWarnings("unchecked")
-                Producer<K, V> producer = (Producer<K, V>) p;
-                producer.send(key, value);
-            } catch (ClassCastException e) {
-                System.err.printf("⚠️ Producer %s 類型不匹配，略過%n", p.getClass().getSimpleName());
+    @Override
+    public void startProducers() {
+        System.out.println("[ProducerManager] 啟動生產者...");
+        for (int i = 0; i < producers.size(); i++) {
+            Producer producer = producers.get(i);
+            System.out.println(" - 生產者 " + producer.getName() + " 開始生產");
+            producer.produce(null); // 模擬
+            if (i < strategies.size()) {
+                System.out.println("   > 啟動策略: " + strategies.get(i).getClass().getSimpleName());
+                strategies.get(i).start(producer.getName());
             }
-        });
+        }
     }
 }
