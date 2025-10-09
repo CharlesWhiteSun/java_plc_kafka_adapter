@@ -1,7 +1,9 @@
 com\charlessun\javaplcadapter\worker\ConsumerWorker.class
+com\charlessun\javaplcadapter\manager\impl\DefaultConsumerManager.class
 com\charlessun\javaplcadapter\model\ConsumerSpec$Builder.class
 com\charlessun\javaplcadapter\model\ConsumerSpec.class
 com\charlessun\javaplcadapter\model\MessageRecord.class
+com\charlessun\javaplcadapter\worker\impl\ConsumerWorkerImpl.class
 com\charlessun\javaplcadapter\manager\ConsumerManager.class
 com\charlessun\javaplcadapter\processor\ProcessingStrategy.class
 com\charlessun\javaplcadapter\kafka\client\KafkaConsumerClient.class

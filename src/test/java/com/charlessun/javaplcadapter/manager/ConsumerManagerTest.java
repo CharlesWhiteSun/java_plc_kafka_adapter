@@ -1,5 +1,6 @@
 package com.charlessun.javaplcadapter.manager;
 
+import com.charlessun.javaplcadapter.manager.impl.DefaultConsumerManager;
 import com.charlessun.javaplcadapter.model.ConsumerSpec;
 import com.charlessun.javaplcadapter.processor.ProcessingStrategy;
 import org.junit.jupiter.api.BeforeEach;
@@ -23,7 +24,7 @@ class ConsumerManagerTest {
 
     @BeforeEach
     void setUp() {
-        consumerManager = Mockito.mock(ConsumerManager.class);
+        consumerManager = new DefaultConsumerManager();
     }
 
     @Test
@@ -38,12 +39,11 @@ class ConsumerManagerTest {
 
         ProcessingStrategy<?> mockStrategy = mock(ProcessingStrategy.class);
 
-        when(consumerManager.register(mockSpec, mockStrategy)).thenReturn("consumer-1");
-
         // act
         String id = consumerManager.register(mockSpec, mockStrategy);
 
         // assert
-        assertEquals("consumer-1", id);
+        assertNotNull(id);
+        assertTrue(id.startsWith("consumer-"));
     }
 }
