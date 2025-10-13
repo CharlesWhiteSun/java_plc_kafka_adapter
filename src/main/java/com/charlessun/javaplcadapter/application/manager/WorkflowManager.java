@@ -31,8 +31,13 @@ public class WorkflowManager {
         groups.values().forEach(group ->
                 group.getWorkflows().forEach(workflow ->
                         executor.submit(() -> {
-                            System.out.println("[WorkflowManager] Executing once: " + workflow.getName());
-                            workflow.execute();
+                            try {
+                                System.out.println("[WorkflowManager] Executing once: " + workflow.getName());
+                                workflow.execute();
+                            } catch (Exception e) {
+                                System.err.println("[WorkflowManager] Workflow failed: " + workflow.getName() + " - " + e.getMessage());
+                                e.printStackTrace();
+                            }
                         })
                 )
         );
@@ -43,8 +48,13 @@ public class WorkflowManager {
         groups.values().forEach(group ->
                 group.getWorkflows().forEach(workflow ->
                         executor.scheduleAtFixedRate(() -> {
-                            System.out.println("[WorkflowManager] Periodic execute: " + workflow.getName());
-                            workflow.execute();
+                            try {
+                                System.out.println("[WorkflowManager] Periodic execute: " + workflow.getName());
+                                workflow.execute();
+                            } catch (Exception e) {
+                                System.err.println("[WorkflowManager] Periodic workflow failed: " + workflow.getName() + " - " + e.getMessage());
+                                e.printStackTrace();
+                            }
                         }, 0, period, unit)
                 )
         );
@@ -56,8 +66,13 @@ public class WorkflowManager {
         if (group != null) {
             group.getWorkflows().forEach(workflow ->
                     executor.submit(() -> {
-                        System.out.println("[WorkflowManager] Executing group: " + name);
-                        workflow.execute();
+                        try {
+                            System.out.println("[WorkflowManager] Executing group: " + name);
+                            workflow.execute();
+                        } catch (Exception e) {
+                            System.err.println("[WorkflowManager] Workflow in group " + name + " failed: " + workflow.getName() + " - " + e.getMessage());
+                            e.printStackTrace();
+                        }
                     })
             );
         }
