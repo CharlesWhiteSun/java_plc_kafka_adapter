@@ -5,12 +5,10 @@ C:\java\java_plc_kafka_adapter\src\main\java\com\charlessun\javaplcadapter\workf
 C:\java\java_plc_kafka_adapter\src\main\java\com\charlessun\javaplcadapter\adapter\consumer\Consumer.java
 C:\java\java_plc_kafka_adapter\src\main\java\com\charlessun\javaplcadapter\adapter\producer\Producer.java
 C:\java\java_plc_kafka_adapter\src\main\java\com\charlessun\javaplcadapter\workflow\impl\ExampleTask.java
-C:\java\java_plc_kafka_adapter\src\main\java\com\charlessun\javaplcadapter\application\executor\WorkflowExecutor.java
 C:\java\java_plc_kafka_adapter\src\main\java\com\charlessun\javaplcadapter\MainApplication.java
 C:\java\java_plc_kafka_adapter\src\main\java\com\charlessun\javaplcadapter\adapter\producer\impl\GenericProducer.java
-C:\java\java_plc_kafka_adapter\src\main\java\com\charlessun\javaplcadapter\application\manager\WorkflowManager.java
 C:\java\java_plc_kafka_adapter\src\main\java\com\charlessun\javaplcadapter\workflow\impl\DefaultWorkflowGroup.java
-C:\java\java_plc_kafka_adapter\src\main\java\com\charlessun\javaplcadapter\application\executor\NamedThreadFactory.java
+C:\java\java_plc_kafka_adapter\src\main\java\com\charlessun\javaplcadapter\workflow\impl\ConsumerTask.java
 C:\java\java_plc_kafka_adapter\src\main\java\com\charlessun\javaplcadapter\workflow\impl\DefaultWorkflowManager.java
 C:\java\java_plc_kafka_adapter\src\main\java\com\charlessun\javaplcadapter\workflow\Workflow.java
 C:\java\java_plc_kafka_adapter\src\main\java\com\charlessun\javaplcadapter\workflow\TaskResult.java

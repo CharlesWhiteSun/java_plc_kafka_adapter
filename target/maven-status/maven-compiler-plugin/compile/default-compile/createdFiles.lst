@@ -1,8 +1,8 @@
-com\charlessun\javaplcadapter\application\executor\WorkflowExecutor.class
+com\charlessun\javaplcadapter\workflow\impl\ConsumerTask.class
 com\charlessun\javaplcadapter\workflow\impl\DefaultTaskResult.class
 com\charlessun\javaplcadapter\adapter\consumer\Consumer.class
+com\charlessun\javaplcadapter\workflow\impl\DefaultWorkflow$1.class
 com\charlessun\javaplcadapter\workflow\impl\DefaultWorkflow.class
-com\charlessun\javaplcadapter\application\manager\WorkflowManager.class
 com\charlessun\javaplcadapter\workflow\WorkflowManager.class
 com\charlessun\javaplcadapter\workflow\WorkflowPolicy.class
 com\charlessun\javaplcadapter\workflow\impl\DefaultWorkflowManager.class
@@ -18,4 +18,3 @@ com\charlessun\javaplcadapter\workflow\WorkflowGroup.class
 com\charlessun\javaplcadapter\workflow\impl\DefaultWorkflowGroup.class
 com\charlessun\javaplcadapter\workflow\WorkflowExecutor.class
 com\charlessun\javaplcadapter\adapter\producer\impl\GenericProducer.class
-com\charlessun\javaplcadapter\application\executor\NamedThreadFactory.class
